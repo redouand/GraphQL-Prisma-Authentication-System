@@ -1,0 +1,22 @@
+type Mutation {
+  signUp(name: String, email: String, password: String): signUpResult
+  login(email: String, password: String): loginResult
+}
+
+type Query{
+  getToken: String
+}
+###############################################
+union signUpResult = User | ValidErr | NormalErr
+type User {
+  token: String!
+}
+type ValidErr { error: Valid2Err }
+type Valid2Err {
+  email: String
+  password: String
+  name: String
+}
+type NormalErr { message: String! }
+####################################################
+union loginResult = User | ValidErr
